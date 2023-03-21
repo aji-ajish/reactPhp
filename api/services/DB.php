@@ -1,10 +1,12 @@
-<?php 
+<?php
 
 namespace services;
+
 use mysqli;
 
-class DB{
-    public $db_host = 'localhot';
+class DB
+{
+    public $db_host = 'localhost';
     public $db_user = 'root';
     public $db_password = '';
     public $db_database = 'react_php';
@@ -12,12 +14,12 @@ class DB{
     public function database()
     {
         //making connection
-      $conn = new mysqli($this->db_host,$this->db_user,$this->db_password,$this->db_database);
+        $conn = new mysqli($this->db_host, $this->db_user, $this->db_password, $this->db_database);
 
-      //checking conncection
-      if($conn->connect_error){
-        die("Connection failed ".$conn->connect_error);
-      }
-      return $conn; 
+        //checking conncection
+        if ($conn->connect_error) {
+            die("Connection failed " . $conn->connect_error);
+        }
+        return $conn;
     }
 }

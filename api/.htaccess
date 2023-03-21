@@ -1,0 +1,9 @@
+Options +FollowSymLinks -MultiViews
+
+RewriteEngine On
+RewriteBase /php/reactPhp/api/
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule (.*) routing.php [QSA,l]
