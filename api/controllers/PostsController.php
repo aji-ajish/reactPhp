@@ -94,4 +94,36 @@ class PostsController
         mysqli_close($this->conn);
     }
 
+    public function getPostsFromDatabase()
+    {
+        try {
+            header("Access-Control-Allow-Origin: *");
+            header("Access-Control-Allow-Headers: *");
+// echo "<pre>";
+            $perPage = $_GET['limit'] ?? 5;
+            $pageNumber = $_GET['offset'] ?? 0;
+            $postsArray = [];
+            $sql = "SELECT * FROM posts";
+            $totlPosts = mysqli_num_rows(mysqli_query($this->conn, $sql));
+
+            $sql = "SELECT * FROM posts ORDER BY id LIMIT $perPage OFFSET $pageNumber";
+            $response=mysqli_query($this->conn, $sql);
+            if($response){
+                while ($row=mysqli_fetch_assoc($response)){
+                    $postsArray['posts'][]=$row;
+                }
+            }else{
+                echo "ERROR .". $sql. "<br />".mysqli_error($this->conn);
+            }
+            $postsArray['count'] =$totlPosts;
+            mysqli_close($this->conn);
+            echo json_encode($postsArray, JSON_PRETTY_PRINT);
+            // return json_encode($postsArray, JSON_PRETTY_PRINT);
+           
+        } catch (\Exception $e) {
+            var_dump($e->getMessage());
+            exit;
+        }
+    }
+
 }

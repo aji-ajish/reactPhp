@@ -1,9 +1,9 @@
 import './App.css';
 import { lightTheme, darkTheme, GlobalStyle } from './theme';
 // import {ColorModeSwitcher} from "./ColorModeSwitcher";
-import { ChakraProvider, Box, Grid, VStack, Text, Link, Flex, HStack, Spacer, Stack, Switch, Container } from '@chakra-ui/react';
+import { ChakraProvider, Box, Grid, VStack, Text, Flex, HStack, Spacer, Stack, Switch, Container } from '@chakra-ui/react';
 import { useState } from 'react';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes,Link } from "react-router-dom";
 import { MoonIcon, SunIcon, Search2Icon } from '@chakra-ui/icons';
 import { ThemeProvider } from 'styled-components';
 import Main from './components/Main';
@@ -53,8 +53,8 @@ function App() {
               <Flex h={16} alignItems={"center"} justifyContent="space-between">
                 <HStack spacing={16} alignItems={"left"}>
                   <HStack as={'nav'} spacing={6} display={{ base: 'none', md: 'flex' }}>
-                    <Link href="/">Home</Link>
-                    <Link href="/contact">Contact</Link>
+                    <Link to="/">Home</Link>
+                    <Link to="/contact">Contact</Link>
                   </HStack>
                 </HStack>
                 <Search2Icon></Search2Icon>
@@ -63,7 +63,7 @@ function App() {
                   <Flex alignItems={'center'} >
                     <Spacer></Spacer>
                     <Stack direction={'row'} spacing={7}>
-                      <Switch onChange={changeThemeSwitch}>
+                      <Switch onChange={changeThemeSwitch} >
                         {isSwitchOn ? (<MoonIcon mr="5" />) : (<SunIcon mr="5" />)}
                       </Switch>
                     </Stack>
@@ -74,8 +74,8 @@ function App() {
             <div className='App'>
               <Container maxW={"1200px"} marginTop={'50px'}>
                 <Routes>
-                  <Route  exact path='/' component={Main}></Route>
-                  <Route path='/contact' component={Contact}></Route>
+                  <Route  exact path='/' element={<Main/>}></Route>
+                  <Route path='/contact' element={<Contact/>}></Route>
                 </Routes>
               </Container>
             </div>

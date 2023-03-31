@@ -6,7 +6,7 @@
 require("api/services/DB.php");
 use services\DB;
 
-require("api/controllers/PostsController.php");
-use API\Controllers\PostsController;
+// require("api/controllers/PostsController.php");
+// use API\Controllers\PostsController;
 
-(new PostsController)->getPosts();
+// (new PostsController)->getPosts();
