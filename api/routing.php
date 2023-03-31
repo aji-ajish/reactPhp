@@ -29,7 +29,7 @@ if (strpos($current_link, '?') !== false) {
 $urls = [
     '/php/reactPhp/api/posts' => ['PostsController@getPostsFromDatabase'],
     '/php/reactPhp/api/searchresult' => ['PostsController@getSearchResult'],
-
+    '/php/reactPhp/api/getCurrentTopic'=>['PostsController@getCurrentTopic']
 ];
 
 //check if rout available

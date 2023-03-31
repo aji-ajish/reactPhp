@@ -12,10 +12,17 @@ export default function SinglePost() {
 
 const fetchCurrentPost=async(id)=>{
     const res = await fetch(
-        `http://localhost//getCurrentTopic?id=${id}`,
-
+        `http://localhost/php/reactPhp/api/getCurrentTopic?id=${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json"
+          }
+        }
       );
-
+      return await res.json();
+    }
 }    
     useEffect(()=>{
 setPostData(location.state);

@@ -156,5 +156,22 @@ class PostsController
             exit;
         }
     }
+public function getCurrentTopic()
+{
+    try {
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: *");
 
+        $this->getHeaders();
+        $currentTopic =null;
+        $id=$_GET['id'??null];
+        if($id){
+            
+        }
+    }
+    catch (\Exception $e) {
+        var_dump($e->getMessage());
+        exit;
+    }
+}
 }
