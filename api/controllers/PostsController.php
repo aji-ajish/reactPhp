@@ -94,12 +94,15 @@ class PostsController
         mysqli_close($this->conn);
     }
 
+    /**
+     * getting paginated posts from database
+     */
     public function getPostsFromDatabase()
     {
         try {
             header("Access-Control-Allow-Origin: *");
             header("Access-Control-Allow-Headers: *");
-// echo "<pre>";
+            // echo "<pre>";
             $perPage = $_GET['limit'] ?? 5;
             $pageNumber = $_GET['offset'] ?? 0;
             $postsArray = [];
@@ -107,19 +110,47 @@ class PostsController
             $totlPosts = mysqli_num_rows(mysqli_query($this->conn, $sql));
 
             $sql = "SELECT * FROM posts ORDER BY id LIMIT $perPage OFFSET $pageNumber";
-            $response=mysqli_query($this->conn, $sql);
-            if($response){
-                while ($row=mysqli_fetch_assoc($response)){
-                    $postsArray['posts'][]=$row;
+            $response = mysqli_query($this->conn, $sql);
+            if ($response) {
+                while ($row = mysqli_fetch_assoc($response)) {
+                    $postsArray['posts'][] = $row;
                 }
-            }else{
-                echo "ERROR .". $sql. "<br />".mysqli_error($this->conn);
+            } else {
+                echo "ERROR ." . $sql . "<br />" . mysqli_error($this->conn);
             }
-            $postsArray['count'] =$totlPosts;
+            $postsArray['count'] = $totlPosts;
             mysqli_close($this->conn);
             echo json_encode($postsArray, JSON_PRETTY_PRINT);
             // return json_encode($postsArray, JSON_PRETTY_PRINT);
-           
+
+        } catch (\Exception $e) {
+            var_dump($e->getMessage());
+            exit;
+        }
+    }
+
+    /**
+     * getting search result from database
+     */
+    public function getSearchResult()
+    {
+        try {
+            header("Access-Control-Allow-Origin: *");
+            header("Access-Control-Allow-Headers: *");
+            $postArray=[];
+            $keyword=$_GET['keyword'] ?? null;
+            if($keyword){
+                $sql="SELECT id,title FROM posts WHERE title LIKE '%$keyword%' LIMIT 5; ";
+                $response= mysqli_query($this->conn,$sql);
+                if($response){
+                    while($row =mysqli_fetch_assoc($response)){
+                        $postArray['posts'][]=$row;
+                    }
+                }
+            }
+            // var_dump($postArray);
+            //     die();
+            echo json_encode($postArray,JSON_PRETTY_PRINT);
         } catch (\Exception $e) {
             var_dump($e->getMessage());
             exit;
